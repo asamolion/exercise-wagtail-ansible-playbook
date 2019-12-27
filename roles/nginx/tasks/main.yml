@@ -1,0 +1,23 @@
+---
+# tasks file for nginx
+- name: Install Utility software
+  become: yes
+  apt:
+    name: ['curl', 'gnupg2', 'ca-certificates', 'lsb-release']
+    state: latest
+    update_cache: yes
+
+- name: Add apt repo
+  become: yes
+  command: echo "deb http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
+
+- name: Update apt cache
+  become: yes
+  command: apt update
+
+- name: Install NGINX
+  become: yes
+  apt:
+    name: nginx
+    update_cache: yes
+    state: present

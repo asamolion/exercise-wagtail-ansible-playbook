@@ -2,6 +2,7 @@
 - hosts: all
   roles:
     - mariadb
+    - nginx
 
   tasks:
     - name: Update apt cache if needed.
