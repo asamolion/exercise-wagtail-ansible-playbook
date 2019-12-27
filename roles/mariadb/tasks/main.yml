@@ -1,0 +1,25 @@
+---
+# tasks file for mariadb
+- name: Install Utility software
+  become: yes
+  apt:
+    name: ['software-properties-common', 'python-mysqldb']
+    state: latest
+    update_cache: yes
+
+- name: Add apt key
+  become: yes
+  command: apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+
+- name: Add apt repository
+  become: yes
+  apt_repository:
+    repo: deb [arch=amd64,arm64,ppc64el] https://mirrors.nxthost.com/mariadb/repo/10.3/ubuntu bionic main
+    update_cache: yes
+
+- name: Install MariaDB Server
+  become: yes
+  apt:
+    name: mariadb-server
+    update_cache: yes
+    state: present
